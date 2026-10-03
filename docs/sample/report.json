@@ -1,0 +1,698 @@
+{
+  "summary": {
+    "score": 98.62,
+    "threshold": 90,
+    "gate": "FAIL",
+    "blocking_rules": [
+      "R002",
+      "R003",
+      "R004",
+      "R006",
+      "R007",
+      "R008",
+      "R009",
+      "R014"
+    ],
+    "rules": 14,
+    "rules_passed": 4,
+    "rules_failed": 10,
+    "errors_failed": 8,
+    "warnings_failed": 2
+  },
+  "rules": [
+    {
+      "id": "R001",
+      "dataset": "ZSD_O01",
+      "type": "row_count",
+      "severity": "error",
+      "description": "Extract is not empty",
+      "field": null,
+      "checked": 1,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "examples": []
+    },
+    {
+      "id": "R002",
+      "dataset": "ZSD_O01",
+      "type": "unique",
+      "severity": "error",
+      "description": "Document item is unique",
+      "field": "DOC_NUMBER,DOC_ITEM",
+      "checked": 606,
+      "failed": 12,
+      "pass_rate": 0.9802,
+      "examples": [
+        {
+          "DOC_NUMBER": "4500000040",
+          "DOC_ITEM": "000010"
+        },
+        {
+          "DOC_NUMBER": "4500000192",
+          "DOC_ITEM": "000020"
+        },
+        {
+          "DOC_NUMBER": "4500000221",
+          "DOC_ITEM": "000020"
+        },
+        {
+          "DOC_NUMBER": "4500000232",
+          "DOC_ITEM": "000020"
+        },
+        {
+          "DOC_NUMBER": "4500000251",
+          "DOC_ITEM": "000020"
+        }
+      ]
+    },
+    {
+      "id": "R003",
+      "dataset": "ZSD_O01",
+      "type": "not_null",
+      "severity": "error",
+      "description": "Customer is filled",
+      "field": "CUSTOMER",
+      "checked": 606,
+      "failed": 14,
+      "pass_rate": 0.9769,
+      "examples": [
+        {
+          "DOC_NUMBER": "4500000004",
+          "DOC_ITEM": "000010",
+          "CUSTOMER": ""
+        },
+        {
+          "DOC_NUMBER": "4500000008",
+          "DOC_ITEM": "000010",
+          "CUSTOMER": ""
+        },
+        {
+          "DOC_NUMBER": "4500000026",
+          "DOC_ITEM": "000020",
+          "CUSTOMER": ""
+        },
+        {
+          "DOC_NUMBER": "4500000060",
+          "DOC_ITEM": "000020",
+          "CUSTOMER": ""
+        },
+        {
+          "DOC_NUMBER": "4500000064",
+          "DOC_ITEM": "000010",
+          "CUSTOMER": ""
+        }
+      ]
+    },
+    {
+      "id": "R004",
+      "dataset": "ZSD_O01",
+      "type": "reference",
+      "severity": "error",
+      "description": "Material exists in master data",
+      "field": "MATERIAL",
+      "checked": 606,
+      "failed": 12,
+      "pass_rate": 0.9802,
+      "examples": [
+        {
+          "DOC_NUMBER": "4500000006",
+          "DOC_ITEM": "000020",
+          "MATERIAL": "MAT900001"
+        },
+        {
+          "DOC_NUMBER": "4500000046",
+          "DOC_ITEM": "000010",
+          "MATERIAL": "MAT900002"
+        },
+        {
+          "DOC_NUMBER": "4500000069",
+          "DOC_ITEM": "000010",
+          "MATERIAL": "MAT900010"
+        },
+        {
+          "DOC_NUMBER": "4500000076",
+          "DOC_ITEM": "000020",
+          "MATERIAL": "MAT900007"
+        },
+        {
+          "DOC_NUMBER": "4500000081",
+          "DOC_ITEM": "000020",
+          "MATERIAL": "MAT900009"
+        }
+      ]
+    },
+    {
+      "id": "R005",
+      "dataset": "ZSD_O01",
+      "type": "reference",
+      "severity": "error",
+      "description": "Customer exists in master data",
+      "field": "CUSTOMER",
+      "checked": 592,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "examples": []
+    },
+    {
+      "id": "R006",
+      "dataset": "ZSD_O01",
+      "type": "range",
+      "severity": "error",
+      "description": "Quantity is positive",
+      "field": "QUANTITY",
+      "checked": 606,
+      "failed": 8,
+      "pass_rate": 0.9868,
+      "examples": [
+        {
+          "DOC_NUMBER": "4500000047",
+          "DOC_ITEM": "000010",
+          "QUANTITY": "-44"
+        },
+        {
+          "DOC_NUMBER": "4500000087",
+          "DOC_ITEM": "000020",
+          "QUANTITY": "-34"
+        },
+        {
+          "DOC_NUMBER": "4500000101",
+          "DOC_ITEM": "000020",
+          "QUANTITY": "-50"
+        },
+        {
+          "DOC_NUMBER": "4500000153",
+          "DOC_ITEM": "000020",
+          "QUANTITY": "-48"
+        },
+        {
+          "DOC_NUMBER": "4500000199",
+          "DOC_ITEM": "000010",
+          "QUANTITY": "-47"
+        }
+      ]
+    },
+    {
+      "id": "R007",
+      "dataset": "ZSD_O01",
+      "type": "date_not_future",
+      "severity": "error",
+      "description": "Posting date is not in the future",
+      "field": "CALDAY",
+      "checked": 606,
+      "failed": 6,
+      "pass_rate": 0.9901,
+      "examples": [
+        {
+          "DOC_NUMBER": "4500000054",
+          "DOC_ITEM": "000020",
+          "CALDAY": "20261108"
+        },
+        {
+          "DOC_NUMBER": "4500000143",
+          "DOC_ITEM": "000010",
+          "CALDAY": "20261209"
+        },
+        {
+          "DOC_NUMBER": "4500000187",
+          "DOC_ITEM": "000010",
+          "CALDAY": "20261015"
+        },
+        {
+          "DOC_NUMBER": "4500000187",
+          "DOC_ITEM": "000020",
+          "CALDAY": "20261007"
+        },
+        {
+          "DOC_NUMBER": "4500000237",
+          "DOC_ITEM": "000020",
+          "CALDAY": "20261112"
+        }
+      ]
+    },
+    {
+      "id": "R008",
+      "dataset": "ZSD_O01",
+      "type": "allowed_values",
+      "severity": "error",
+      "description": "Currency is a valid ISO code in scope",
+      "field": "CURRENCY",
+      "checked": 606,
+      "failed": 7,
+      "pass_rate": 0.9884,
+      "examples": [
+        {
+          "DOC_NUMBER": "4500000009",
+          "DOC_ITEM": "000020",
+          "CURRENCY": "XXX"
+        },
+        {
+          "DOC_NUMBER": "4500000083",
+          "DOC_ITEM": "000010",
+          "CURRENCY": "usd"
+        },
+        {
+          "DOC_NUMBER": "4500000097",
+          "DOC_ITEM": "000020",
+          "CURRENCY": "EU"
+        },
+        {
+          "DOC_NUMBER": "4500000105",
+          "DOC_ITEM": "000010",
+          "CURRENCY": "XXX"
+        },
+        {
+          "DOC_NUMBER": "4500000146",
+          "DOC_ITEM": "000020",
+          "CURRENCY": "XXX"
+        }
+      ]
+    },
+    {
+      "id": "R009",
+      "dataset": "ZSD_O01",
+      "type": "allowed_values",
+      "severity": "error",
+      "description": "Unit of measure is valid",
+      "field": "UNIT",
+      "checked": 606,
+      "failed": 5,
+      "pass_rate": 0.9917,
+      "examples": [
+        {
+          "DOC_NUMBER": "4500000043",
+          "DOC_ITEM": "000010",
+          "UNIT": "??"
+        },
+        {
+          "DOC_NUMBER": "4500000186",
+          "DOC_ITEM": "000020",
+          "UNIT": "kg"
+        },
+        {
+          "DOC_NUMBER": "4500000247",
+          "DOC_ITEM": "000020",
+          "UNIT": "kg"
+        },
+        {
+          "DOC_NUMBER": "4500000250",
+          "DOC_ITEM": "000020",
+          "UNIT": "??"
+        },
+        {
+          "DOC_NUMBER": "4500000288",
+          "DOC_ITEM": "000010",
+          "UNIT": "kg"
+        }
+      ]
+    },
+    {
+      "id": "R010",
+      "dataset": "ZSD_O01",
+      "type": "range",
+      "severity": "warning",
+      "description": "Net value is plausible (0 to 100,000)",
+      "field": "NET_VALUE",
+      "checked": 606,
+      "failed": 4,
+      "pass_rate": 0.9934,
+      "examples": [
+        {
+          "DOC_NUMBER": "4500000042",
+          "DOC_ITEM": "000020",
+          "NET_VALUE": "8000000.00"
+        },
+        {
+          "DOC_NUMBER": "4500000053",
+          "DOC_ITEM": "000020",
+          "NET_VALUE": "8000000.00"
+        },
+        {
+          "DOC_NUMBER": "4500000082",
+          "DOC_ITEM": "000010",
+          "NET_VALUE": "7000000.00"
+        },
+        {
+          "DOC_NUMBER": "4500000117",
+          "DOC_ITEM": "000020",
+          "NET_VALUE": "8000000.00"
+        }
+      ]
+    },
+    {
+      "id": "R011",
+      "dataset": "ZSD_O01",
+      "type": "regex",
+      "severity": "error",
+      "description": "Document number has 10 digits",
+      "field": "DOC_NUMBER",
+      "checked": 606,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "examples": []
+    },
+    {
+      "id": "R012",
+      "dataset": "MAT_ATTR",
+      "type": "not_null",
+      "severity": "warning",
+      "description": "Material group is maintained",
+      "field": "MATL_GROUP",
+      "checked": 60,
+      "failed": 3,
+      "pass_rate": 0.95,
+      "examples": [
+        {
+          "MATERIAL": "MAT000001",
+          "MATL_GROUP": ""
+        },
+        {
+          "MATERIAL": "MAT000002",
+          "MATL_GROUP": ""
+        },
+        {
+          "MATERIAL": "MAT000003",
+          "MATL_GROUP": ""
+        }
+      ]
+    },
+    {
+      "id": "R013",
+      "dataset": "MAT_ATTR",
+      "type": "unique",
+      "severity": "error",
+      "description": "Material master key is unique",
+      "field": "MATERIAL",
+      "checked": 60,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "examples": []
+    },
+    {
+      "id": "R014",
+      "dataset": "CUST_ATTR",
+      "type": "regex",
+      "severity": "error",
+      "description": "Country is a 2 letter code",
+      "field": "COUNTRY",
+      "checked": 40,
+      "failed": 2,
+      "pass_rate": 0.95,
+      "examples": [
+        {
+          "CUSTOMER": "C00001",
+          "COUNTRY": "Germany"
+        },
+        {
+          "CUSTOMER": "C00002",
+          "COUNTRY": "Germany"
+        }
+      ]
+    }
+  ],
+  "impact": [
+    {
+      "rule": "R002",
+      "dataset": "ZSD_O01",
+      "field": "DOC_NUMBER,DOC_ITEM",
+      "node": "ZSD_O01",
+      "affected": [
+        {
+          "id": "ZSD_C01",
+          "label": "ADSO ZSD_C01 (reporting)",
+          "type": "DataStore",
+          "field": null
+        },
+        {
+          "id": "Q_REV_MONTH",
+          "label": "Query Revenue by month",
+          "type": "BW query",
+          "field": null
+        },
+        {
+          "id": "Q_TOP_MAT",
+          "label": "Query Top materials",
+          "type": "BW query",
+          "field": null
+        },
+        {
+          "id": "Q_CUST_REGION",
+          "label": "Query Customers by country",
+          "type": "BW query",
+          "field": null
+        },
+        {
+          "id": "APP_SALES",
+          "label": "SAPUI5 Sales Overview",
+          "type": "App",
+          "field": null
+        },
+        {
+          "id": "APP_CUSTOMER",
+          "label": "SAPUI5 Customer Insights",
+          "type": "App",
+          "field": null
+        }
+      ]
+    },
+    {
+      "rule": "R003",
+      "dataset": "ZSD_O01",
+      "field": "CUSTOMER",
+      "node": "ZSD_O01",
+      "affected": [
+        {
+          "id": "ZSD_C01",
+          "label": "ADSO ZSD_C01 (reporting)",
+          "type": "DataStore",
+          "field": "0CUSTOMER"
+        },
+        {
+          "id": "Q_CUST_REGION",
+          "label": "Query Customers by country",
+          "type": "BW query",
+          "field": "0CUSTOMER"
+        },
+        {
+          "id": "APP_CUSTOMER",
+          "label": "SAPUI5 Customer Insights",
+          "type": "App",
+          "field": "0CUSTOMER"
+        }
+      ]
+    },
+    {
+      "rule": "R004",
+      "dataset": "ZSD_O01",
+      "field": "MATERIAL",
+      "node": "ZSD_O01",
+      "affected": [
+        {
+          "id": "ZSD_C01",
+          "label": "ADSO ZSD_C01 (reporting)",
+          "type": "DataStore",
+          "field": "0MATERIAL"
+        },
+        {
+          "id": "Q_TOP_MAT",
+          "label": "Query Top materials",
+          "type": "BW query",
+          "field": "0MATERIAL"
+        },
+        {
+          "id": "APP_SALES",
+          "label": "SAPUI5 Sales Overview",
+          "type": "App",
+          "field": "0MATERIAL"
+        }
+      ]
+    },
+    {
+      "rule": "R006",
+      "dataset": "ZSD_O01",
+      "field": "QUANTITY",
+      "node": "ZSD_O01",
+      "affected": [
+        {
+          "id": "ZSD_C01",
+          "label": "ADSO ZSD_C01 (reporting)",
+          "type": "DataStore",
+          "field": "0QUANTITY"
+        },
+        {
+          "id": "Q_TOP_MAT",
+          "label": "Query Top materials",
+          "type": "BW query",
+          "field": "0QUANTITY"
+        },
+        {
+          "id": "APP_SALES",
+          "label": "SAPUI5 Sales Overview",
+          "type": "App",
+          "field": "0QUANTITY"
+        }
+      ]
+    },
+    {
+      "rule": "R007",
+      "dataset": "ZSD_O01",
+      "field": "CALDAY",
+      "node": "ZSD_O01",
+      "affected": [
+        {
+          "id": "ZSD_C01",
+          "label": "ADSO ZSD_C01 (reporting)",
+          "type": "DataStore",
+          "field": "0CALDAY"
+        },
+        {
+          "id": "Q_REV_MONTH",
+          "label": "Query Revenue by month",
+          "type": "BW query",
+          "field": "0CALDAY"
+        },
+        {
+          "id": "APP_SALES",
+          "label": "SAPUI5 Sales Overview",
+          "type": "App",
+          "field": "0CALDAY"
+        }
+      ]
+    },
+    {
+      "rule": "R008",
+      "dataset": "ZSD_O01",
+      "field": "CURRENCY",
+      "node": "ZSD_O01",
+      "affected": [
+        {
+          "id": "ZSD_C01",
+          "label": "ADSO ZSD_C01 (reporting)",
+          "type": "DataStore",
+          "field": "0CURRENCY"
+        },
+        {
+          "id": "Q_REV_MONTH",
+          "label": "Query Revenue by month",
+          "type": "BW query",
+          "field": "0CURRENCY"
+        },
+        {
+          "id": "APP_SALES",
+          "label": "SAPUI5 Sales Overview",
+          "type": "App",
+          "field": "0CURRENCY"
+        }
+      ]
+    },
+    {
+      "rule": "R009",
+      "dataset": "ZSD_O01",
+      "field": "UNIT",
+      "node": "ZSD_O01",
+      "affected": [
+        {
+          "id": "ZSD_C01",
+          "label": "ADSO ZSD_C01 (reporting)",
+          "type": "DataStore",
+          "field": "0BASE_UOM"
+        }
+      ]
+    },
+    {
+      "rule": "R010",
+      "dataset": "ZSD_O01",
+      "field": "NET_VALUE",
+      "node": "ZSD_O01",
+      "affected": [
+        {
+          "id": "ZSD_C01",
+          "label": "ADSO ZSD_C01 (reporting)",
+          "type": "DataStore",
+          "field": "0NET_VALUE"
+        },
+        {
+          "id": "Q_REV_MONTH",
+          "label": "Query Revenue by month",
+          "type": "BW query",
+          "field": "0NET_VALUE"
+        },
+        {
+          "id": "Q_TOP_MAT",
+          "label": "Query Top materials",
+          "type": "BW query",
+          "field": "0NET_VALUE"
+        },
+        {
+          "id": "Q_CUST_REGION",
+          "label": "Query Customers by country",
+          "type": "BW query",
+          "field": "0NET_VALUE"
+        },
+        {
+          "id": "APP_SALES",
+          "label": "SAPUI5 Sales Overview",
+          "type": "App",
+          "field": "0NET_VALUE"
+        },
+        {
+          "id": "APP_CUSTOMER",
+          "label": "SAPUI5 Customer Insights",
+          "type": "App",
+          "field": "0NET_VALUE"
+        }
+      ]
+    },
+    {
+      "rule": "R012",
+      "dataset": "MAT_ATTR",
+      "field": "MATL_GROUP",
+      "node": "MAT_ATTR",
+      "affected": [
+        {
+          "id": "ZSD_C01",
+          "label": "ADSO ZSD_C01 (reporting)",
+          "type": "DataStore",
+          "field": "0MATL_GROUP"
+        },
+        {
+          "id": "Q_TOP_MAT",
+          "label": "Query Top materials",
+          "type": "BW query",
+          "field": "0MATL_GROUP"
+        },
+        {
+          "id": "APP_SALES",
+          "label": "SAPUI5 Sales Overview",
+          "type": "App",
+          "field": "0MATL_GROUP"
+        }
+      ]
+    },
+    {
+      "rule": "R014",
+      "dataset": "CUST_ATTR",
+      "field": "COUNTRY",
+      "node": "CUST_ATTR",
+      "affected": [
+        {
+          "id": "ZSD_C01",
+          "label": "ADSO ZSD_C01 (reporting)",
+          "type": "DataStore",
+          "field": "0COUNTRY"
+        },
+        {
+          "id": "Q_CUST_REGION",
+          "label": "Query Customers by country",
+          "type": "BW query",
+          "field": "0COUNTRY"
+        },
+        {
+          "id": "APP_CUSTOMER",
+          "label": "SAPUI5 Customer Insights",
+          "type": "App",
+          "field": "0COUNTRY"
+        }
+      ]
+    }
+  ]
+}
