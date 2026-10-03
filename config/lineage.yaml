@@ -1,0 +1,42 @@
+# Data flow of the sales reporting chain, from source to SAPUI5 app.
+# 'map' lists the fields that pass an edge and the name they get on the target.
+nodes:
+  - {id: SRC_SD, label: "DataSource 2LIS_11_VAITM", type: Source}
+  - {id: ZSD_O01, label: "ADSO ZSD_O01", type: DataStore}
+  - {id: MAT_ATTR, label: "Material attributes", type: Master data}
+  - {id: CUST_ATTR, label: "Customer attributes", type: Master data}
+  - {id: ZSD_C01, label: "ADSO ZSD_C01 (reporting)", type: DataStore}
+  - {id: Q_REV_MONTH, label: "Query Revenue by month", type: BW query}
+  - {id: Q_TOP_MAT, label: "Query Top materials", type: BW query}
+  - {id: Q_CUST_REGION, label: "Query Customers by country", type: BW query}
+  - {id: APP_SALES, label: "SAPUI5 Sales Overview", type: App}
+  - {id: APP_CUSTOMER, label: "SAPUI5 Customer Insights", type: App}
+
+edges:
+  - from: SRC_SD
+    to: ZSD_O01
+    map: {VBELN: DOC_NUMBER, POSNR: DOC_ITEM, FKDAT: CALDAY, MATNR: MATERIAL, KUNNR: CUSTOMER, VKORG: COMP_CODE, FKIMG: QUANTITY, VRKME: UNIT, NETWR: NET_VALUE, WAERK: CURRENCY}
+  - from: ZSD_O01
+    to: ZSD_C01
+    map: {DOC_NUMBER: 0DOC_NUMBER, CALDAY: 0CALDAY, MATERIAL: 0MATERIAL, CUSTOMER: 0CUSTOMER, COMP_CODE: 0COMP_CODE, QUANTITY: 0QUANTITY, UNIT: 0BASE_UOM, NET_VALUE: 0NET_VALUE, CURRENCY: 0CURRENCY}
+  - from: MAT_ATTR
+    to: ZSD_C01
+    map: {MATERIAL: 0MATERIAL, MATL_GROUP: 0MATL_GROUP}
+  - from: CUST_ATTR
+    to: ZSD_C01
+    map: {CUSTOMER: 0CUSTOMER, COUNTRY: 0COUNTRY}
+  - from: ZSD_C01
+    to: Q_REV_MONTH
+    map: {0CALDAY: 0CALDAY, 0NET_VALUE: 0NET_VALUE, 0CURRENCY: 0CURRENCY}
+  - from: ZSD_C01
+    to: Q_TOP_MAT
+    map: {0MATERIAL: 0MATERIAL, 0MATL_GROUP: 0MATL_GROUP, 0NET_VALUE: 0NET_VALUE, 0QUANTITY: 0QUANTITY}
+  - from: ZSD_C01
+    to: Q_CUST_REGION
+    map: {0CUSTOMER: 0CUSTOMER, 0COUNTRY: 0COUNTRY, 0NET_VALUE: 0NET_VALUE}
+  - from: Q_REV_MONTH
+    to: APP_SALES
+  - from: Q_TOP_MAT
+    to: APP_SALES
+  - from: Q_CUST_REGION
+    to: APP_CUSTOMER
