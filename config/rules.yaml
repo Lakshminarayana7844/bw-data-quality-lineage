@@ -1,0 +1,33 @@
+# Data quality rules for the sales data flow. Paths are relative to this file.
+as_of: "2026-09-30"   # fixed reporting date so results are reproducible
+threshold: 90         # minimum quality score for the run to pass
+
+datasets:
+  ZSD_O01:
+    path: ../data/ZSD_O01.csv
+    key: [DOC_NUMBER, DOC_ITEM]
+    node: ZSD_O01
+  MAT_ATTR:
+    path: ../data/MAT_ATTR.csv
+    key: [MATERIAL]
+    node: MAT_ATTR
+  CUST_ATTR:
+    path: ../data/CUST_ATTR.csv
+    key: [CUSTOMER]
+    node: CUST_ATTR
+
+rules:
+  - {id: R001, dataset: ZSD_O01, type: row_count, min: 100, description: "Extract is not empty"}
+  - {id: R002, dataset: ZSD_O01, type: unique, fields: [DOC_NUMBER, DOC_ITEM], description: "Document item is unique"}
+  - {id: R003, dataset: ZSD_O01, type: not_null, field: CUSTOMER, description: "Customer is filled"}
+  - {id: R004, dataset: ZSD_O01, type: reference, field: MATERIAL, ref_dataset: MAT_ATTR, ref_field: MATERIAL, description: "Material exists in master data"}
+  - {id: R005, dataset: ZSD_O01, type: reference, field: CUSTOMER, ref_dataset: CUST_ATTR, ref_field: CUSTOMER, description: "Customer exists in master data"}
+  - {id: R006, dataset: ZSD_O01, type: range, field: QUANTITY, min: 1, description: "Quantity is positive"}
+  - {id: R007, dataset: ZSD_O01, type: date_not_future, field: CALDAY, description: "Posting date is not in the future"}
+  - {id: R008, dataset: ZSD_O01, type: allowed_values, field: CURRENCY, values: [EUR, USD, CHF], description: "Currency is a valid ISO code in scope"}
+  - {id: R009, dataset: ZSD_O01, type: allowed_values, field: UNIT, values: [PC, KG, M], description: "Unit of measure is valid"}
+  - {id: R010, dataset: ZSD_O01, type: range, field: NET_VALUE, min: 0, max: 100000, severity: warning, description: "Net value is plausible (0 to 100,000)"}
+  - {id: R011, dataset: ZSD_O01, type: regex, field: DOC_NUMBER, pattern: '\d{10}', description: "Document number has 10 digits"}
+  - {id: R012, dataset: MAT_ATTR, type: not_null, field: MATL_GROUP, severity: warning, description: "Material group is maintained"}
+  - {id: R013, dataset: MAT_ATTR, type: unique, field: MATERIAL, description: "Material master key is unique"}
+  - {id: R014, dataset: CUST_ATTR, type: regex, field: COUNTRY, pattern: '[A-Z]{2}', description: "Country is a 2 letter code"}
