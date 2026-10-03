@@ -1,0 +1,14 @@
+{
+  "null_customer": 14,
+  "orphan_material": 12,
+  "negative_quantity": 8,
+  "future_date": 6,
+  "bad_currency": 7,
+  "bad_unit": 5,
+  "extreme_value": 4,
+  "duplicate_extra_rows": 6,
+  "duplicate_rows_flagged": 12,
+  "material_missing_group": 3,
+  "customer_bad_country": 2,
+  "rows_total": 606
+}
